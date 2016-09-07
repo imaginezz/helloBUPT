@@ -7,6 +7,14 @@ using System.Text.RegularExpressions;
 using System;
 
 class CampusNetwork {
+
+    public CampusNetwork() {
+        bool isSaved = (bool)SettingLib.ReadSetting("campusNetworkAccountSaved");
+        if (!isSaved) {
+            SettingLib.SaveSetting("campusNetworkAccountSaved", false);
+        }
+    }
+
     public async Task<string> Login(string id, string passwd) {
         string loginUrl = "http://10.3.8.211/";
         string postData = "DDDDD=" + id + "&upass=" + passwd + "&savePWD=0&0MKKey=";
@@ -24,19 +32,19 @@ class CampusNetwork {
             regStr = @"(?<=<title>)(.*?)(?=</title>)";
             regRet = RegLib.RegexMatch(regStr, ref response);
             if (regRet == "登录成功窗") {
-                Library.DebugOutput("登录成功");
+                DebugLib.DebugOutput("登录成功");
             } else if (regRet == "信息返回窗") {
                 //javascrpit Msg=\d*;
                 regStr = @"(?<=Msg=)(\d*)(?=;)";
                 regRet = RegLib.RegexMatch(regStr, ref response);
-                Library.DebugOutput(regRet);
+                DebugLib.DebugOutput(regRet);
                 int msgId = Int32.Parse(regRet);
-                Library.DebugOutput(msgId);
-                string errInfo="";
+                DebugLib.DebugOutput(msgId);
+                string errInfo = "";
                 regStr = @"(?<=xip=')(.*)('?=;)";
                 regRet = RegLib.RegexMatch(regStr, ref response);
                 string xipStr = regRet;
-                Library.DebugOutput(xipStr);
+                DebugLib.DebugOutput(xipStr);
                 switch (msgId) {
                     case 0:
                         errInfo = "账号或密码不对，请重新输入";
@@ -63,7 +71,7 @@ class CampusNetwork {
                         }
                         break;
                     case 2:
-                        Library.DebugOutput(regRet);
+                        DebugLib.DebugOutput(regRet);
                         errInfo = "该账号正在IP为：" + xipStr + "的机器上使用，<br><br>请点击<a href='a11.htm'>继续</a>断开它的连接并重新输入用户名和密码登陆本机。";
                         break;
                     case 3:
@@ -103,9 +111,9 @@ class CampusNetwork {
                         errInfo = "登录成功";
                         break;
                 }
-                Library.DebugOutput(errInfo);
+                DebugLib.DebugOutput(errInfo);
             } else {
-                Library.DebugOutput("登录失败");
+                DebugLib.DebugOutput("登录失败");
             }
         } catch {
             response = "network error";
@@ -122,7 +130,30 @@ class CampusNetwork {
         } catch {
             response = "logout error";
         }
-        Library.DebugOutput(response);
+        DebugLib.DebugOutput(response);
         return response;
+    }
+
+    public void saveAccount(string id, string passwd) {
+        SettingLib.SaveSetting("campusNetworkAccountSaved", true);
+        SettingLib.SaveSetting("campusNetworkAccountId", id);
+        SettingLib.SaveSetting("campusNetworkAccountPasswd", passwd);
+    }
+    public void clearAccount() {
+        SettingLib.SaveSetting("campusNetworkAccountSaved", false);
+        SettingLib.SaveSetting("campusNetworkAccountId", "");
+        SettingLib.SaveSetting("campusNetworkAccountPasswd", "");
+    }
+    public bool readAccount(out string id, out string passwd) {
+        bool isSaved = (bool)SettingLib.ReadSetting("campusNetworkAccountSaved");
+        if (isSaved) {
+            id = SettingLib.ReadSetting("campusNetworkAccountId").ToString();
+            passwd = SettingLib.ReadSetting("campusNetworkAccountPasswd").ToString();
+            return true;
+        } else {
+            id = "";
+            passwd = "";
+            return false;
+        }
     }
 }

@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Windows.Storage;
 
-class Library {
+
+class DebugLib {
     public static void DebugOutput(object log) {
         Debug.WriteLine(log);
     }
@@ -63,9 +66,57 @@ class webLib {
 
 }
 class RegLib {
-    public static string RegexMatch(string regStr,ref string input) {
+    public static string RegexMatch(string regStr, ref string input) {
         Regex reg = new Regex(regStr);
         Match match = reg.Match(input);
         return match.Value;
     }
+}
+
+class SettingLib {
+
+    private static ApplicationDataContainer dataSettings;
+
+    public SettingLib(bool isRoaming = true) {
+        if (isRoaming) {
+            dataSettings = ApplicationData.Current.RoamingSettings;
+        } else {
+            dataSettings = ApplicationData.Current.LocalSettings;
+        }
+    }
+
+    public void SaveSetting(string key, Object value) {
+        dataSettings.Values[key] = value;
+    }
+
+    public void SaveCompositeSetting(string compositeName,List<Tuple<string, Object>> vals) {
+        ApplicationDataCompositeValue composite = new ApplicationDataCompositeValue();
+        foreach(Tuple<string ,Object> v in vals) {
+            composite[v.Item1] = v.Item2;
+        }
+        SaveSetting(compositeName,composite);
+    }
+
+    public object ReadSingleSetting(string key) {
+        object value = dataSettings.Values[key];
+        return value;
+    }
+    public List<Tuple<string,Object>> ReadCompositeSetting(string compositeName,List<string> settingNames) {
+        ApplicationDataCompositeValue composite = (ApplicationDataCompositeValue)ReadSingleSetting(compositeName);
+        if (composite == null) {
+            return null;
+        }else {
+            List<Tuple<string, Object>> cs = new List<Tuple<string, object>>();
+            foreach (string sn in settingNames) {
+                cs.Add(new Tuple<string, Object>(sn, composite[sn]));
+            }
+            return cs;
+        }
+    }
+
+    //remove normal or composite setting
+    public void RemoveSetting(string settingName) {
+        dataSettings.Values.Remove(settingName);
+    }
+
 }

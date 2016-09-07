@@ -30,13 +30,19 @@ namespace beiyou
         }
 
         private async void Login_Click(object sender, RoutedEventArgs e) {
-            Library.DebugOutput("student id " + StudentId.Text);
-            Library.DebugOutput("student passwd " + StudentPasswd.Text);
+            DebugLib.DebugOutput("student id " + StudentId.Text);
+            DebugLib.DebugOutput("student passwd " + StudentPasswd.Text);
             await campusNetwork.Login(StudentId.Text, StudentPasswd.Text);
         }
 
         private async void Logout_Click(object sender, RoutedEventArgs e) {
             await campusNetwork.Logout();
+        }
+
+        private void checkSave_Click(object sender, RoutedEventArgs e) {
+            if(checkSave.IsChecked == false) {
+
+            }
         }
     }
 }
