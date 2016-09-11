@@ -212,3 +212,8 @@ C:\Documents\Source\Repos\helloBUPT\beiyou\obj\x86\Debug\MultipleQualifiersPerDi
 C:\Documents\Source\Repos\helloBUPT\beiyou\obj\x86\Debug\ProjectArchitectures.txt
 C:\Documents\Source\Repos\helloBUPT\beiyou\bin\x86\Debug\beiyou.build.appxrecipe
 C:\Documents\Source\Repos\helloBUPT\beiyou\obj\x86\Debug\beiyou.csprojResolveAssemblyReference.cache
+C:\Documents\Source\Repos\helloBUPT\beiyou\bin\x86\Debug\Project\CampusNetwork\LoginPage.xbf
+C:\Documents\Source\Repos\helloBUPT\beiyou\obj\x86\Debug\Project\CampusNetwork\LoginPage.g.i.cs
+C:\Documents\Source\Repos\helloBUPT\beiyou\obj\x86\Debug\Project\CampusNetwork\LoginPage.g.cs
+C:\Documents\Source\Repos\helloBUPT\beiyou\obj\x86\Debug\Project\CampusNetwork\LoginPage.xaml
+C:\Documents\Source\Repos\helloBUPT\beiyou\obj\x86\Debug\Project\CampusNetwork\LoginPage.xbf

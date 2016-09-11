@@ -22,27 +22,10 @@ namespace beiyou
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        CampusNetwork campusNetwork;
         public MainPage()
         {
             this.InitializeComponent();
-            campusNetwork = new CampusNetwork();
-        }
-
-        private async void Login_Click(object sender, RoutedEventArgs e) {
-            DebugLib.DebugOutput("student id " + StudentId.Text);
-            DebugLib.DebugOutput("student passwd " + StudentPasswd.Text);
-            await campusNetwork.Login(StudentId.Text, StudentPasswd.Text);
-        }
-
-        private async void Logout_Click(object sender, RoutedEventArgs e) {
-            await campusNetwork.Logout();
-        }
-
-        private void checkSave_Click(object sender, RoutedEventArgs e) {
-            if(checkSave.IsChecked == false) {
-
-            }
+            mainFrame.Navigate(typeof(Project.CampusNetwork.LoginPage));
         }
     }
 }
