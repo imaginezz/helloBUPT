@@ -16,6 +16,7 @@ namespace beiyou.Project.CampusNetwork {
             }
         }
 
+        //需要新增对http://10.4.1.2/的处理
         public async Task<string> Login(string id, string passwd) {
             string loginUrl = "http://10.3.8.211/";
             string postData = "DDDDD=" + id + "&upass=" + passwd + "&savePWD=0&0MKKey=";
@@ -166,6 +167,10 @@ namespace beiyou.Project.CampusNetwork {
             if (readIsSaved != null && (bool)readIsSaved != false) {
                 isSettingSaved = true;
             }
+        }
+
+        public void toast() {
+            ToastLib toastLib = new ToastLib();
         }
     }
 }

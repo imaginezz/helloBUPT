@@ -53,6 +53,8 @@ namespace beiyou.Project.CampusNetwork {
             StudentIdText = id;
             StudentPasswdText = passwd;
             checkSave.IsChecked = check;
+
+            campusNetwork.toast();
         }
         private async void Login_Click(object sender, RoutedEventArgs e) {
             InformationText=await campusNetwork.Login(StudentIdText, StudentPasswdText);

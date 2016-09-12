@@ -7,7 +7,7 @@ class SettingLib {
     private ApplicationDataContainer dataSettings;
 
     private string tempSettingName;
-    private Object tempSettingValue;
+    private object tempSettingValue;
     private string tempContainerName;
     private string tempCompositeName;
     private ApplicationDataContainer tempContainer;
@@ -16,7 +16,7 @@ class SettingLib {
 
     private bool isAutoClearTemp;
 
-    public SettingLib(bool isRoaming = true,bool isAutoClearTemp=true) {
+    public SettingLib(bool isRoaming = true, bool isAutoClearTemp = true) {
         if (isRoaming) {
             dataSettings = ApplicationData.Current.RoamingSettings;
         } else {
@@ -28,14 +28,14 @@ class SettingLib {
         tempReadComposite = null;
     }
 
-    public SettingLib CreateSetting(string key, Object value) {
+    public SettingLib CreateSetting(string key, object value) {
         tempSettingName = key;
         tempSettingValue = value;
         return this;
     }
-    public SettingLib CreateComposite(string compositeName, List<Tuple<string, Object>> vals) {
+    public SettingLib CreateComposite(string compositeName, List<Tuple<string, object>> vals) {
         ApplicationDataCompositeValue composite = new ApplicationDataCompositeValue();
-        foreach (Tuple<string, Object> v in vals) {
+        foreach (Tuple<string, object> v in vals) {
             composite[v.Item1] = v.Item2;
         }
         tempComposite = composite;
@@ -108,7 +108,7 @@ class SettingLib {
     }
 
     //不考虑嵌套Container
-    public List<Tuple<string, Object>> ReadSetting(string compositeName, List<string> settingNames) {
+    public List<Tuple<string, object>> ReadSetting(string compositeName, List<string> settingNames) {
         ApplicationDataCompositeValue composite;
         if (tempReadComposite != null) {
             composite = tempReadComposite;
@@ -118,9 +118,9 @@ class SettingLib {
         if (composite == null) {
             return null;
         } else {
-            List<Tuple<string, Object>> cs = new List<Tuple<string, object>>();
+            List<Tuple<string, object>> cs = new List<Tuple<string, object>>();
             foreach (string sn in settingNames) {
-                cs.Add(new Tuple<string, Object>(sn, composite[sn]));
+                cs.Add(new Tuple<string, object>(sn, composite[sn]));
             }
             return cs;
         }
@@ -148,10 +148,10 @@ class SettingLib {
     }
 
     //不考虑嵌套Container
-    public void RemoveSetting(string settingName,bool isContainer=false) {
+    public void RemoveSetting(string settingName, bool isContainer = false) {
         if (isContainer) {
             dataSettings.DeleteContainer(settingName);
-        }else {
+        } else {
             dataSettings.Values.Remove(settingName);
         }
     }

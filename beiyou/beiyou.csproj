@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommonLibrary\ToastLib.cs" />
     <Compile Include="Project\CampusNetwork\campusNetworkClass.cs" />
     <Compile Include="CommonLibrary\DebugLib.cs" />
     <Compile Include="CommonLibrary\RegLib.cs" />
