@@ -21,23 +21,56 @@ namespace beiyou.Project.CampusNetwork {
     /// </summary>
     public sealed partial class LoginPage : Page {
         CampusNetworkClass campusNetwork;
+
+        private string InformationText {
+            set {
+                Information.Text = value;
+            }
+        }
+        private string StudentIdText {
+            set {
+                StudentId.Text = value;
+            }
+            get {
+                return StudentId.Text;
+            }
+        }
+        private string StudentPasswdText {
+            set {
+                StudentPasswd.Password = value;
+            }
+            get {
+                return StudentPasswd.Password;
+            }
+        }
+
         public LoginPage() {
             this.InitializeComponent();
             campusNetwork = new CampusNetworkClass();
+            string id, passwd;
+            bool check;
+            campusNetwork.readAccount(out id, out passwd, out check);
+            StudentIdText = id;
+            StudentPasswdText = passwd;
+            checkSave.IsChecked = check;
         }
         private async void Login_Click(object sender, RoutedEventArgs e) {
-            DebugLib.DebugOutput("student id " + StudentId.Text);
-            DebugLib.DebugOutput("student passwd " + StudentPasswd.Text);
-            await campusNetwork.Login(StudentId.Text, StudentPasswd.Text);
+            InformationText=await campusNetwork.Login(StudentIdText, StudentPasswdText);
+            CheckAccount();
         }
 
         private async void Logout_Click(object sender, RoutedEventArgs e) {
-            await campusNetwork.Logout();
+            InformationText=await campusNetwork.Logout();
+            CheckAccount();
         }
 
-        private void checkSave_Click(object sender, RoutedEventArgs e) {
-            if (checkSave.IsChecked == false) {
-
+        private void CheckAccount() {
+            if (checkSave.IsChecked == true) {
+                campusNetwork.saveAccount(StudentIdText, StudentPasswdText);
+            } else {
+                campusNetwork.clearAccount();
+                StudentIdText = string.Empty;
+                StudentPasswdText = string.Empty;
             }
         }
     }

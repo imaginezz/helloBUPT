@@ -23,6 +23,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="0.5*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -30,13 +31,14 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Grid.Row="0" Text="学号" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
             <TextBlock Grid.Column="0" Grid.Row="1" Text="密码" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
-            <TextBox Name="StudentId" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250"/>
-            <TextBox Name="StudentPasswd" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250"/>
-            <CheckBox Name="checkSave" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="给我记住" Click="checkSave_Click"/>
+            <TextBox Name="StudentId" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" />
+            <PasswordBox Name="StudentPasswd" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" PasswordChar="*"/>
+            <CheckBox Name="checkSave" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="给我记住" IsChecked="True" />
             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center">
                 <Button Name="Login" HorizontalAlignment="Left" VerticalAlignment="Center" Content="给我上" FontSize="30" Click="Login_Click" Margin="0,0,20,0"/>
                 <Button Name="Logout" HorizontalAlignment="Right" VerticalAlignment="Center" Content="给我下" FontSize="30" Click="Logout_Click"/>
             </StackPanel>
+            <TextBlock Name="Information" Grid.Row="3" Text="登录信息" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
     </Grid>
 </Page>

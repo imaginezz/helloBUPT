@@ -1,19 +1,19 @@
 ﻿using System.Net;
-using System.Xml;
-using System.Xml.XPath;
 using System.Threading.Tasks;
-using System.IO;
-using System.Text.RegularExpressions;
 using System;
 
 namespace beiyou.Project.CampusNetwork {
     class CampusNetworkClass {
 
+        private SettingLib settingLib = new SettingLib();
+        private bool isSettingSaved;
+
         public CampusNetworkClass() {
-            //bool isSaved = (bool)SettingLib.ReadSetting("campusNetworkAccountSaved");
-            //if (!isSaved) {
-            //    SettingLib.SaveSetting("campusNetworkAccountSaved", false);
-            //}
+            checkIsSettingSaved(); 
+            if (!isSettingSaved) {
+                settingLib.CreateContainer("CampusNetwork").CreateSetting("isCampusNetworkAccountSaved", false);
+                DebugLib.DebugOutput(isSettingSaved);
+            }
         }
 
         public async Task<string> Login(string id, string passwd) {
@@ -24,7 +24,7 @@ namespace beiyou.Project.CampusNetwork {
             cc.Add(new Cookie("username", id));
             cc.Add(new Cookie("smartdot", passwd));
             cc.Add(new Cookie("pwd", passwd));
-            string response;
+            string response,ret;
             try {
                 response = await webLib.HttpPost(loginUrl, postData, "gb2312", cc);
                 string regStr;
@@ -34,6 +34,7 @@ namespace beiyou.Project.CampusNetwork {
                 regRet = RegLib.RegexMatch(regStr, ref response);
                 if (regRet == "登录成功窗") {
                     DebugLib.DebugOutput("登录成功");
+                    ret = "登陆成功";
                 } else if (regRet == "信息返回窗") {
                     //javascrpit Msg=\d*;
                     regStr = @"(?<=Msg=)(\d*)(?=;)";
@@ -113,49 +114,58 @@ namespace beiyou.Project.CampusNetwork {
                             break;
                     }
                     DebugLib.DebugOutput(errInfo);
+                    ret = errInfo;
                 } else {
                     DebugLib.DebugOutput("登录失败");
+                    ret = "登陆失败";
                 }
             } catch {
-                response = "network error";
+                ret = "网络错误，登陆失败";
             }
-            //Library.DebugOutput(response);
-            return response;
+            return ret;
         }
 
         public async Task<string> Logout() {
             string logoutUrl = "http://10.3.8.211/F.html";
-            string response;
+            string response,ret;
             try {
-                response = await webLib.HttpGet(logoutUrl, null, "gb2312");
+               response= await webLib.HttpGet(logoutUrl, null, "gb2312");
+                ret = "注销成功";
             } catch {
-                response = "logout error";
+                ret = "网络错误，注销失败";
             }
-            DebugLib.DebugOutput(response);
-            return response;
+            return ret;
         }
 
-        //public void saveAccount(string id, string passwd) {
-        //    SettingLib.SaveSetting("campusNetworkAccountSaved", true);
-        //    SettingLib.SaveSetting("campusNetworkAccountId", id);
-        //    SettingLib.SaveSetting("campusNetworkAccountPasswd", passwd);
-        //}
-        //public void clearAccount() {
-        //    SettingLib.SaveSetting("campusNetworkAccountSaved", false);
-        //    SettingLib.SaveSetting("campusNetworkAccountId", "");
-        //    SettingLib.SaveSetting("campusNetworkAccountPasswd", "");
-        //}
-        //public bool readAccount(out string id, out string passwd) {
-        //    bool isSaved = (bool)SettingLib.ReadSetting("campusNetworkAccountSaved");
-        //    if (isSaved) {
-        //        id = SettingLib.ReadSetting("campusNetworkAccountId").ToString();
-        //        passwd = SettingLib.ReadSetting("campusNetworkAccountPasswd").ToString();
-        //        return true;
-        //    } else {
-        //        id = "";
-        //        passwd = "";
-        //        return false;
-        //    }
-        //}
+        public void saveAccount(string id, string passwd) {
+            settingLib.CreateContainer("CampusNetwork").CreateSetting("campusNetworkAccountId", id).SaveSetting();
+            settingLib.CreateContainer("CampusNetwork").CreateSetting("campusNetworkAccountPasswd", passwd).SaveSetting();
+            settingLib.CreateContainer("CampusNetwork").CreateSetting("isCampusNetworkAccountSaved", true).SaveSetting();
+        }
+        public void clearAccount() {
+            settingLib.CreateContainer("CampusNetwork").CreateSetting("campusNetworkAccountId", "").SaveSetting();
+            settingLib.CreateContainer("CampusNetwork").CreateSetting("campusNetworkAccountPasswd", "").SaveSetting();
+            settingLib.CreateContainer("CampusNetwork").CreateSetting("isCampusNetworkAccountSaved", false).SaveSetting();
+            DebugLib.DebugOutput("accountSettting cleared");
+        }
+        public void readAccount(out string id, out string passwd,out bool check) {
+            checkIsSettingSaved();
+            if (isSettingSaved) {
+                id = (string)settingLib.ReadSetting("CampusNetwork", "campusNetworkAccountId");
+                passwd = (string)settingLib.ReadSetting("CampusNetwork", "campusNetworkAccountPasswd");
+                check = true;
+            } else {
+                id = string.Empty;
+                passwd = string.Empty;
+                check = false;
+            }
+        }
+        private void checkIsSettingSaved() {
+            isSettingSaved = false;
+            object readIsSaved = settingLib.ReadSetting("CampusNetwork", "isCampusNetworkAccountSaved");
+            if (readIsSaved != null && (bool)readIsSaved != false) {
+                isSettingSaved = true;
+            }
+        }
     }
 }
