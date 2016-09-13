@@ -26,6 +26,9 @@ namespace beiyou.Project.CampusNetwork {
             set {
                 Information.Text = value;
             }
+            get {
+                return Information.Text;
+            }
         }
         private string StudentIdText {
             set {
@@ -54,15 +57,16 @@ namespace beiyou.Project.CampusNetwork {
             StudentPasswdText = passwd;
             checkSave.IsChecked = check;
 
-            campusNetwork.toast();
         }
         private async void Login_Click(object sender, RoutedEventArgs e) {
             InformationText=await campusNetwork.Login(StudentIdText, StudentPasswdText);
+            campusNetwork.toastInfo(InformationText);
             CheckAccount();
         }
 
         private async void Logout_Click(object sender, RoutedEventArgs e) {
             InformationText=await campusNetwork.Logout();
+            campusNetwork.toastInfo(InformationText);
             CheckAccount();
         }
 

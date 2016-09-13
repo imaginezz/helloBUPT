@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
 
 namespace beiyou.Project.CampusNetwork {
     class CampusNetworkClass {
@@ -169,8 +170,12 @@ namespace beiyou.Project.CampusNetwork {
             }
         }
 
-        public void toast() {
+        public void toastInfo(string info) {
             ToastLib toastLib = new ToastLib();
+            List<string> toastStrs = new List<string>();
+            toastStrs.Add(info);
+            toastStrs.Add("there's no logo :(");
+            toastLib.makeToast(toastStrs).showToast();
         }
     }
 }
