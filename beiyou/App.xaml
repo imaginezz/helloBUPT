@@ -1,8 +1,8 @@
 ﻿<Application
-    x:Class="beiyou.App"
+    x:Class="HelloBUPT.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:beiyou"
+    xmlns:local="using:HelloBUPT"
     RequestedTheme="Light">
 
 </Application>

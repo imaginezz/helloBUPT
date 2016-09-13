@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Windows.Networking.Connectivity;
 
-namespace beiyou.Project.CampusNetwork {
+namespace HelloBUPT.Project.CampusNetwork {
     class CampusNetworkClass {
 
         private SettingLib settingLib = new SettingLib();
