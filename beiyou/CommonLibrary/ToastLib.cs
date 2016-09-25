@@ -5,13 +5,14 @@ using Windows.UI.Notifications;
 
 class ToastLib {
 
+    //定义通知模板和XML节点
     private ToastTemplateType toastTemplate;
     private XmlDocument toastXml;
     private IXmlNode toastNode;
-
     private XmlNodeList toastTextElements;
     private XmlNodeList toastImageAttributes;
 
+    //消息类型
     private int toastType;
     private int ToastType {
         set {
@@ -26,6 +27,7 @@ class ToastLib {
         }
     }
 
+    //构造函数，传入通知模板种类即可
     public ToastLib(int type = 0) {
         ToastType = type;
         toastTemplate = (ToastTemplateType)ToastType;
@@ -105,6 +107,8 @@ class ToastLib {
         *    </visual>
         *</toast>
      */
+
+    //生成通知XML的关键函数，用于传入通知图片的连接和通知文字的内容
     //传入字符串sample "消息内容" or $"ms-appx:///assets/图片文件名"
     public ToastLib makeToast(List<string> toastPara) {
         int[] toastParaNumArr = { 2, 3, 3, 4, 1, 2, 2, 3 };
@@ -157,12 +161,14 @@ class ToastLib {
         return this;
     }
 
+    //加入点按通知进入App以后向App传入的参数
     //para example "{\"type\":\"toast\",\"param1\":\"12345\",\"param2\":\"67890\"}"
     public ToastLib addToastLaunchPara(string launchPara) {
         ((XmlElement)toastNode).SetAttribute("launch", launchPara);
         return this;
     }
 
+    //改变通知的声音
     //the avaliable tones are here:Default,IM,Mail,Reminder,SMS,Looping.Alarm,Looping.Alarm2,Looping.Alarm3,Looping.Alarm4,Looping.Alarm5,Looping.Alarm6,Looping.Alarm7,Looping.Alarm8,Looping.Alarm9,Looping.Alarm10,Looping.Call,Looping.Call2,Looping.Call3,Looping.Call4,Looping.Call5,Looping.Call6,Looping.Call7,Looping.Call8,Looping.Call9,Looping.Call10
     public ToastLib setToastTone(string tone) {
         XmlElement audio = toastXml.CreateElement("audio");
@@ -171,12 +177,14 @@ class ToastLib {
         return this;
     }
 
+    //改变通知的时长
     //only 2 types of paras short or long
     public ToastLib setToastDuringTime(string duringTime) {
         ((XmlElement)toastNode).SetAttribute("duration", duringTime);
         return this;
     }
 
+    //显示通知
     public void showToast() {
         ToastNotification toast = new ToastNotification(toastXml);
         ToastNotificationManager.CreateToastNotifier().Show(toast);
