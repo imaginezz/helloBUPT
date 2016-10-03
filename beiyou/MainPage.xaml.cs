@@ -12,7 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
+using HelloBUPT.SideBarMenu;
+using HelloBUPT.Theme;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace HelloBUPT
@@ -22,6 +23,8 @@ namespace HelloBUPT
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public CurrentTheme currentTheme = new CurrentTheme();
+        public SplitViewModel splitViewModel { get; } = new SplitViewModel();
         public MainPage()
         {
             this.InitializeComponent();
