@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:HelloBUPT"
     xmlns:sidebarmenu="using:HelloBUPT.SideBarMenu"
+    xmlns:common="using:HelloBUPT.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -25,11 +26,12 @@
                     <TextBlock Text="{Binding Text}" VerticalAlignment="Center" Margin="18,0,0,0"/>
                 </StackPanel>
             </DataTemplate>
-            <sidebarmenu:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <!-- 自适应 -->
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
@@ -64,6 +66,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <!-- SplitView -->
         <SplitView Name="mainSplitView" OpenPaneLength="240" CompactPaneLength="48" 
                        PaneBackground="LightGray" DisplayMode="{x:Bind splitViewModel.DisplayMode, Mode=TwoWay}" 
                        IsPaneOpen="{x:Bind splitViewModel.IsPaneOpen, Mode=TwoWay}" >
@@ -78,17 +81,25 @@
                                     Content="&#xE700;" FontSize="24" 
                                     Command="{x:Bind splitViewModel.HamburgerButtonCommand}" /> -->
                         <TextBlock Margin="52,0,0,0"  VerticalAlignment="Center" 
-                                   Text="{x:Bind splitViewModel.HamburgerTitle}" />
+                                   Text="{x:Bind NavMenuTitle}" />
                     </StackPanel>
-                    <ListView Grid.Row="1" x:Name="mainListView" 
-                                  ItemsSource="{x:Bind splitViewModel.MenuItems}" 
-                                  ItemTemplate="{StaticResource SplitMenuDataTemplate}" />
+                    <sidebarmenu:SplitViewModel x:Name="mainListView"
+                                                Grid.Row="1" 
+                                                ItemsSource="{x:Bind NavMenuList}" 
+                                                ItemTemplate="{StaticResource SplitMenuDataTemplate}"
+                                                ItemInvoked="NavMenuList_ItemInvoked" />
+                    <!--ListView Grid.Row="1" x:Name="mainListView" 
+                                  ItemsSource="{x:Bind NavMenuList}" 
+                                  ItemTemplate="{StaticResource SplitMenuDataTemplate}" / -->
                 </Grid>
             </SplitView.Pane>
             <SplitView.Content>
                 <Frame Name="mainFrame"/>
             </SplitView.Content>
         </SplitView>
+        
+        <!-- Hamburger Button -->
+
         <ToggleButton x:Name="hamburgerButton"
             Visibility="{x:Bind splitViewModel.IsInDetailsMode, Mode=OneWay, ConverterParameter=Reverse, Converter={StaticResource BooleanToVisibilityConverter}}"
             Margin="0"

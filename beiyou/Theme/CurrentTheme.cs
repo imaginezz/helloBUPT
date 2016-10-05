@@ -19,7 +19,7 @@ namespace HelloBUPT.Theme {
             }
             set {
                 theme = value;
-                this.OnPropertyChanged();
+                this.OnPropertyChanged("Theme");
             }
         }
 

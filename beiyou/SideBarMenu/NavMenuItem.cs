@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
 namespace HelloBUPT.SideBarMenu {
-    public class MenuItem {
+    public class NavMenuItem {
         public Symbol Icon { get; set; }
         public string Text { get; set; }
+        public Type DestPage { get; set; }
     }
 }

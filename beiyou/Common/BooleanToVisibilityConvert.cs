@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace HelloBUPT.SideBarMenu {
+namespace HelloBUPT.Common {
     public class BooleanToVisibilityConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, string language) =>
             (bool)value ^ (parameter as string ?? string.Empty).Equals("Reverse") ?

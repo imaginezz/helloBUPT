@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
+using HelloBUPT.Theme;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace HelloBUPT.Project.CampusNetwork {
@@ -21,7 +21,6 @@ namespace HelloBUPT.Project.CampusNetwork {
     /// </summary>
     public sealed partial class LoginPage : Page {
         CampusNetworkClass campusNetwork;
-
         private string InformationText {
             set {
                 Information.Text = value;
@@ -56,7 +55,6 @@ namespace HelloBUPT.Project.CampusNetwork {
             StudentIdText = id;
             StudentPasswdText = passwd;
             checkSave.IsChecked = check;
-
         }
         private async void Login_Click(object sender, RoutedEventArgs e) {
             InformationText=await campusNetwork.Login(StudentIdText, StudentPasswdText);
