@@ -42,7 +42,8 @@ namespace HelloBUPT
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                this.DebugSettings.EnableFrameRateCounter = true;
+                // Change this to disable the FrameRateCounter
+                this.DebugSettings.EnableFrameRateCounter = false;
             }
 #endif
             Frame rootFrame = Window.Current.Content as Frame;
