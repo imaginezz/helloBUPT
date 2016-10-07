@@ -14,11 +14,11 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="SideBarMenu/Style.xaml"/>
+                <ResourceDictionary Source="/SideBarMenu/Style.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary Source="Theme/LightThemeDictionary.xaml" x:Key="Light" />
-                <ResourceDictionary Source="Theme/DarkThemeDictionary.xaml" x:Key="Dark" />
+                <ResourceDictionary Source="/Theme/LightThemeDictionary.xaml" x:Key="Light" />
+                <ResourceDictionary Source="/Theme/DarkThemeDictionary.xaml" x:Key="Dark" />
             </ResourceDictionary.ThemeDictionaries>
             <DataTemplate x:Key="SplitMenuDataTemplate">
                 <StackPanel Orientation="Horizontal" Height="48">

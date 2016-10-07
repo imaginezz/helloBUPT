@@ -6,7 +6,10 @@
     <SolidColorBrush x:Key="TextBlockForegroundColor" Color="White"/>
     <SolidColorBrush x:Key="TextBlockForegroundColorAlt" Color="Gray"/>
     <SolidColorBrush x:Key="HamburgerButtonForeground" Color="White" />
-    <SolidColorBrush x:Key="SplitViewPaneBackgroundColor" Color="#FF363636" />
+    <SolidColorBrush x:Key="HamburgerButtonPointerOverForegroundColor" Color="#FF424242" />
+    <SolidColorBrush x:Key="SplitViewPaneBackgroundColor" Color="#FF2d2d2d" />
+    <SolidColorBrush x:Key="CompactTitleBarContentBackgroundColor" Color="#FF2d2d2d" />
+    <Color x:Key="MobileDeviceStatusBarBackgroundColor">#FF2d2d2d</Color>
     <SolidColorBrush x:Key="TextBoxBackgroundColor" Color="Black" />
     <SolidColorBrush x:Key="TextBoxTextForegroundColor" Color="White" />
     <SolidColorBrush x:Key="ButtonPressedTextForegroundColor" Color="Black" />

@@ -8,5 +8,6 @@ using Windows.UI.ViewManagement;
 namespace HelloBUPT.Common {
     public static class AppSetting {
         public static MainPage mainPage = null;
+        public static StatusBar statusBar = null;
     }
 }

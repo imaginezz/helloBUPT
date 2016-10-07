@@ -51,7 +51,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot"
                                                                        Storyboard.TargetProperty="(Grid.Background)">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource SystemAccentColorLight1}" />
+                                                                    Value="{ThemeResource HamburgerButtonPointerOverForegroundColor}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                     </Storyboard>
@@ -85,7 +85,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LayoutRoot"
                                                                        Storyboard.TargetProperty="(Grid.Background)">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource SystemAccentColorLight1}" />
+                                                                    Value="{ThemeResource HamburgerButtonPointerOverForegroundColor}" />
                                         </ObjectAnimationUsingKeyFrames>
 
                                     </Storyboard>

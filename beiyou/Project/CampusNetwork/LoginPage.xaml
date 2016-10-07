@@ -62,12 +62,12 @@
                     <StackPanel x:Name="IdStackPanel" Grid.Row="0" Orientation="Horizontal">
                         <TextBlock Grid.Column="0" Text="学号" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Margin="15"/>
                         <TextBox Name="StudentId" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                 Width="250"/>
+                                 Width="250" Style="{StaticResource RoundedTextBox}"/>
                     </StackPanel>
                     <StackPanel x:Name="PasswordStackPanel" Grid.Row="1" Orientation="Horizontal">
                         <TextBlock Text="密码" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Margin="15"/>
                         <PasswordBox Name="StudentPasswd" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                     Width="250" Style="{StaticResource PasswordBoxStyle}"/>
+                                     Width="250" Style="{StaticResource RoundedPassWordBox}"/>
                     </StackPanel>
                     <StackPanel x:Name="SaveStackPanel" Grid.Row="2">
                         <CheckBox Name="checkSave" HorizontalAlignment="Center" VerticalAlignment="Center" Content="记住密码" IsChecked="True"/>

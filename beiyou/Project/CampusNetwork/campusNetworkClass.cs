@@ -222,7 +222,9 @@ namespace HelloBUPT.Project.CampusNetwork {
             ConnectionProfile cp = NetworkInformation.GetInternetConnectionProfile();
             string ssid = null;
             if (cp != null) {
-                ssid = cp.WlanConnectionProfileDetails.GetConnectedSsid();
+                if (cp.WlanConnectionProfileDetails != null) {
+                    ssid = cp.WlanConnectionProfileDetails.GetConnectedSsid();
+                }
             }
             return ssid;
         }

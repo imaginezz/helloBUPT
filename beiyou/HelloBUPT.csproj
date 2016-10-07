@@ -98,6 +98,7 @@
     <Compile Include="CommonLibrary\ToastLib.cs" />
     <Compile Include="Common\AppSetting.cs" />
     <Compile Include="Common\PercentageValueConvert.cs" />
+    <Compile Include="Common\SolidBrushToColorConvert.cs" />
     <Compile Include="Project\CampusNetwork\CampusNetworkClass.cs" />
     <Compile Include="CommonLibrary\DebugLib.cs" />
     <Compile Include="CommonLibrary\RegLib.cs" />
@@ -172,7 +173,17 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CustomControl\" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="WindowsDesktop, Version=10.0.10586.0">
+      <Name>Windows Desktop Extensions for the UWP</Name>
+    </SDKReference>
+    <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
