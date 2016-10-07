@@ -40,7 +40,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="mainSplitView.DisplayMode" Value="Overlay"/>
-                        <Setter Target="mainSplitView.IsPaneOpen" Value="True" />
+                        <Setter Target="mainSplitView.IsPaneOpen" Value="False" />
                         <Setter Target="hamburgerButton.IsEnabled" Value="True" />
                     </VisualState.Setters>
                 </VisualState>
@@ -68,7 +68,7 @@
         </VisualStateManager.VisualStateGroups>
         <!-- SplitView -->
         <SplitView Name="mainSplitView" OpenPaneLength="240" CompactPaneLength="48" 
-                       PaneBackground="LightGray" DisplayMode="{x:Bind splitViewModel.DisplayMode, Mode=TwoWay}" 
+                       PaneBackground="{ThemeResource SplitViewPaneBackgroundColor}" DisplayMode="{x:Bind splitViewModel.DisplayMode, Mode=TwoWay}" 
                        IsPaneOpen="{x:Bind splitViewModel.IsPaneOpen, Mode=TwoWay}" >
             <SplitView.Pane>
                 <Grid>

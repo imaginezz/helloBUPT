@@ -5,4 +5,9 @@
     <SolidColorBrush x:Key="PageBackgroundColor" Color="Black" />
     <SolidColorBrush x:Key="TextBlockForegroundColor" Color="White"/>
     <SolidColorBrush x:Key="TextBlockForegroundColorAlt" Color="Gray"/>
+    <SolidColorBrush x:Key="HamburgerButtonForeground" Color="White" />
+    <SolidColorBrush x:Key="SplitViewPaneBackgroundColor" Color="#FF363636" />
+    <SolidColorBrush x:Key="TextBoxBackgroundColor" Color="Black" />
+    <SolidColorBrush x:Key="TextBoxTextForegroundColor" Color="White" />
+    <SolidColorBrush x:Key="ButtonPressedTextForegroundColor" Color="Black" />
 </ResourceDictionary>

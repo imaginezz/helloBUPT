@@ -62,7 +62,7 @@
                     <StackPanel x:Name="IdStackPanel" Grid.Row="0" Orientation="Horizontal">
                         <TextBlock Grid.Column="0" Text="学号" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Margin="15"/>
                         <TextBox Name="StudentId" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                 Width="250" Style="{StaticResource TextBoxStyle}"/>
+                                 Width="250"/>
                     </StackPanel>
                     <StackPanel x:Name="PasswordStackPanel" Grid.Row="1" Orientation="Horizontal">
                         <TextBlock Text="密码" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Margin="15"/>
@@ -79,7 +79,9 @@
                         RelativePanel.Below="MainGrid" RelativePanel.AlignHorizontalCenterWith="MainGrid" 
                         Margin="20, 20, 20, 20" Height="{Binding ElementName=Login, Path=Height}" Width="{Binding Height, RelativeSource={RelativeSource Self}}">
                 <Button Name="Login" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Click="Login_Click"
-                        Height="60" Width="{Binding Height, RelativeSource={RelativeSource Self}}" Content="&#57611;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource LoginButtonStyle}" />
+                        Height="60" Width="{Binding Height, RelativeSource={RelativeSource Self}}" Content="&#57611;" 
+                        FontFamily="Segoe MDL2 Assets" Style="{StaticResource LoginButtonStyle}" 
+                        Foreground="{ThemeResource SystemAccentColor}"/>
                 <!-- <Button Name="Logout" HorizontalAlignment="Right" VerticalAlignment="Center" Content="给我下" FontSize="30" Click="Logout_Click"/> -->
             </StackPanel>
         </RelativePanel>
