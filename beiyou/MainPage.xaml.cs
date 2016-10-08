@@ -15,7 +15,6 @@ using Windows.UI.Xaml.Navigation;
 using HelloBUPT.SideBarMenu;
 using HelloBUPT.Theme;
 using HelloBUPT.Common;
-using System.Diagnostics;
 using Windows.UI.Core;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -25,12 +24,17 @@ namespace HelloBUPT
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class MainPage : Page {
+        // 整个主界面的主题
         public CurrentTheme currentTheme { get; } = new CurrentTheme();
+        
+
+        // 右侧汉堡菜单
         public SplitViewModel splitViewModel { get; } = new SplitViewModel();
         public string NavMenuTitle = "Hello BUPT";
+        // 汉堡菜单的菜单项
         public List<NavMenuItem> NavMenuList { get; } = new List<NavMenuItem> {
-                new NavMenuItem() { Icon = Symbol.World, Text = "Web", DestPage = typeof(Project.CampusNetwork.LoginPage)},
-                new NavMenuItem() { Icon = Symbol.Setting, Text = "Setting", DestPage = typeof(Project.Setting.Setting)}
+                new NavMenuItem() { Icon = Symbol.World, Text = "网关登录", DestPage = typeof(Project.CampusNetwork.LoginPage)},
+                new NavMenuItem() { Icon = Symbol.Setting, Text = "设置", DestPage = typeof(Project.Setting.Setting)}
         };
         private void NavMenuList_ItemInvoked(object sender, ListViewItem listViewItem) {
             var item = (NavMenuItem)((SplitViewModel)sender).ItemFromContainer(listViewItem);
@@ -38,6 +42,8 @@ namespace HelloBUPT
                 mainFrame.Navigate(item.DestPage);
             }
         }
+
+
         public MainPage() {
             this.InitializeComponent();
             mainFrame.Navigate(typeof(Project.CampusNetwork.LoginPage));
@@ -46,6 +52,8 @@ namespace HelloBUPT
             AppSetting.mainPage = this;
         }
 
+
+        // 导航
         protected override void OnNavigatedTo(NavigationEventArgs e) {
             if (Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons")) {
                 Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
@@ -68,6 +76,7 @@ namespace HelloBUPT
                 AppViewBackButtonVisibility.Collapsed;
         }
 
+        //发出后退请求时
         private void OnBackRequested(object sender, Windows.UI.Core.BackRequestedEventArgs e) {
             if (mainFrame == null)
                 return;
@@ -79,6 +88,7 @@ namespace HelloBUPT
             }
         }
 
+        //对于Mobile Device，按下硬件“后退”按钮时响应
         private void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e) {
             if (splitViewModel.IsPaneOpen) {
                 e.Handled = true;

@@ -10,6 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     RequestedTheme="{x:Bind currentTheme.Theme, Mode=OneWay}">
+    <!-- 在这里绑定了主题，通过修改currentTheme可以修改全局主题 -->
     
     <Page.Resources>
         <ResourceDictionary>
@@ -20,17 +21,20 @@
                 <ResourceDictionary Source="/Theme/LightThemeDictionary.xaml" x:Key="Light" />
                 <ResourceDictionary Source="/Theme/DarkThemeDictionary.xaml" x:Key="Dark" />
             </ResourceDictionary.ThemeDictionaries>
+            <!-- 汉堡菜单的格式，符号 + 文字 -->
             <DataTemplate x:Key="SplitMenuDataTemplate">
                 <StackPanel Orientation="Horizontal" Height="48">
                     <SymbolIcon Symbol="{Binding Icon}" Width="22"/>
                     <TextBlock Text="{Binding Text}" VerticalAlignment="Center" Margin="18,0,0,0"/>
                 </StackPanel>
             </DataTemplate>
+            <!-- 数据转换，将Boolean转换成Visibility -->
             <common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        
         <!-- 自适应 -->
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -66,10 +70,12 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        
         <!-- SplitView -->
         <SplitView Name="mainSplitView" OpenPaneLength="240" CompactPaneLength="48" 
                        PaneBackground="{ThemeResource SplitViewPaneBackgroundColor}" DisplayMode="{x:Bind splitViewModel.DisplayMode, Mode=TwoWay}" 
                        IsPaneOpen="{x:Bind splitViewModel.IsPaneOpen, Mode=TwoWay}" >
+            <!-- Pane -->
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -77,9 +83,6 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal" Height="48">
-                        <!--<Button Name="hamburgerButton" FontFamily="Segoe MDL2 Assets" 
-                                    Content="&#xE700;" FontSize="24" 
-                                    Command="{x:Bind splitViewModel.HamburgerButtonCommand}" /> -->
                         <TextBlock Margin="52,0,0,0"  VerticalAlignment="Center" 
                                    Text="{x:Bind NavMenuTitle}" />
                     </StackPanel>
@@ -88,18 +91,16 @@
                                                 ItemsSource="{x:Bind NavMenuList}" 
                                                 ItemTemplate="{StaticResource SplitMenuDataTemplate}"
                                                 ItemInvoked="NavMenuList_ItemInvoked" />
-                    <!--ListView Grid.Row="1" x:Name="mainListView" 
-                                  ItemsSource="{x:Bind NavMenuList}" 
-                                  ItemTemplate="{StaticResource SplitMenuDataTemplate}" / -->
                 </Grid>
             </SplitView.Pane>
+            
+            <!-- Content -->
             <SplitView.Content>
                 <Frame Name="mainFrame"/>
             </SplitView.Content>
         </SplitView>
         
         <!-- Hamburger Button -->
-
         <ToggleButton x:Name="hamburgerButton"
             Visibility="{x:Bind splitViewModel.IsInDetailsMode, Mode=OneWay, ConverterParameter=Reverse, Converter={StaticResource BooleanToVisibilityConverter}}"
             Margin="0"
@@ -107,6 +108,5 @@
             AutomationProperties.Name="Menu" ToolTipService.ToolTip="Menu"
             Style="{StaticResource SplitViewTogglePaneButtonStyle}" 
             Command="{x:Bind splitViewModel.HamburgerButtonCommand}"/>
-        <!-- IsChecked="{Binding IsPaneOpen, ElementName=mainSplitView, Mode=TwoWay}" -->
     </Grid>
 </Page>

@@ -29,11 +29,14 @@ namespace HelloBUPT.Project.Setting {
         private ResourceDictionary themeResourceDictionary = new ResourceDictionary();
         public Setting() {
             this.InitializeComponent();
+            ThemePickerToggleButton.IsOn = currentTheme.Theme == ElementTheme.Dark ? true : false;
+            ThemePickerToggleButton.Toggled += ThemePickerToggleButton_Toggled;
             themeResourceDictionary.Source = new Uri("ms-appx:///Theme/LightThemeDictionary.xaml", UriKind.Absolute);
         }
 
         private void ThemePickerToggleButton_Toggled(object sender, RoutedEventArgs e) {
             currentTheme.Theme = currentTheme.Theme == ElementTheme.Light ? ElementTheme.Dark : ElementTheme.Light;
+            Windows.Storage.ApplicationData.Current.LocalSettings.Values["Theme"] = currentTheme.Theme == ElementTheme.Light ? "Light" : "Dark" ;
             if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar")) {
                 var statusBar = AppSetting.statusBar;
                 if (statusBar != null) {
@@ -42,7 +45,6 @@ namespace HelloBUPT.Project.Setting {
                     statusBar.ForegroundColor = currentTheme.Theme == ElementTheme.Light ? Colors.Black : Colors.White;
                 }
             }
-
         }
     }
 }
