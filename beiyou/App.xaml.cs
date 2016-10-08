@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Navigation;
 using HelloBUPT.Common;
 using Windows.UI.Core;
 using System.Diagnostics;
+using Windows.Storage;
 
 namespace HelloBUPT 
 {
@@ -28,7 +29,8 @@ namespace HelloBUPT
     /// </summary>
     sealed partial class App : Application
     {
-        private ResourceDictionary themeResourceDictionary = new ResourceDictionary();
+        private ResourceDictionary LightThemeResourceDictionary = new ResourceDictionary();
+        private ResourceDictionary DarkThemeResourceDictionary = new ResourceDictionary();
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -37,7 +39,8 @@ namespace HelloBUPT
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            themeResourceDictionary.Source = new Uri("ms-appx:///Theme/LightThemeDictionary.xaml", UriKind.Absolute);
+            LightThemeResourceDictionary.Source = new Uri("ms-appx:///Theme/LightThemeDictionary.xaml", UriKind.Absolute);
+            DarkThemeResourceDictionary.Source = new Uri("ms-appx:///Theme/DarkThemeDictionary.xaml", UriKind.Absolute);
         }
 
         /// <summary>
@@ -99,7 +102,16 @@ namespace HelloBUPT
                 AppSetting.statusBar = statusBar;
                 if (statusBar != null) {
                     statusBar.BackgroundOpacity = 1;
-                    statusBar.BackgroundColor = Colors.Transparent;//(Color)themeResourceDictionary["MobileDeviceStatusBarBackgroundColor"];
+                    
+                    ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                    if (localSettings.Values.ContainsKey("Theme")) {
+                        if((string)localSettings.Values["Theme"] == "Dark") {
+                            statusBar.BackgroundColor = (Color)DarkThemeResourceDictionary["MobileDeviceStatusBarBackgroundColor"];
+                        }
+                        else {
+                            statusBar.BackgroundColor = (Color)LightThemeResourceDictionary["MobileDeviceStatusBarBackgroundColor"];
+                        }
+                    }
                     statusBar.ForegroundColor = SolidBrushToColorConvert.Convert((SolidColorBrush)Application.Current.Resources["ApplicationForegroundThemeBrush"]);
                 }
             }
