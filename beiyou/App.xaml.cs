@@ -7,6 +7,9 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,6 +17,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using HelloBUPT.Common;
+using Windows.UI.Core;
+using System.Diagnostics;
+using Windows.Storage;
 
 namespace HelloBUPT 
 {
@@ -22,6 +29,8 @@ namespace HelloBUPT
     /// </summary>
     sealed partial class App : Application
     {
+        private ResourceDictionary LightThemeResourceDictionary = new ResourceDictionary();
+        private ResourceDictionary DarkThemeResourceDictionary = new ResourceDictionary();
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -30,6 +39,8 @@ namespace HelloBUPT
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            LightThemeResourceDictionary.Source = new Uri("ms-appx:///Theme/LightThemeDictionary.xaml", UriKind.Absolute);
+            DarkThemeResourceDictionary.Source = new Uri("ms-appx:///Theme/DarkThemeDictionary.xaml", UriKind.Absolute);
         }
 
         /// <summary>
@@ -56,6 +67,7 @@ namespace HelloBUPT
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
+                rootFrame.Navigated += OnNavigated;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -78,6 +90,39 @@ namespace HelloBUPT
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+
+            /*if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView")) {
+                var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+                if (titleBar != null) {
+
+                }
+            }*/
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar")) {  
+                var statusBar = StatusBar.GetForCurrentView();
+                AppSetting.statusBar = statusBar;
+                if (statusBar != null) {
+                    statusBar.BackgroundOpacity = 1;
+                    
+                    ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                    if (localSettings.Values.ContainsKey("Theme")) {
+                        if((string)localSettings.Values["Theme"] == "Dark") {
+                            statusBar.BackgroundColor = (Color)DarkThemeResourceDictionary["MobileDeviceStatusBarBackgroundColor"];
+                        }
+                        else {
+                            statusBar.BackgroundColor = (Color)LightThemeResourceDictionary["MobileDeviceStatusBarBackgroundColor"];
+                        }
+                    }
+                    statusBar.ForegroundColor = SolidBrushToColorConvert.Convert((SolidColorBrush)Application.Current.Resources["ApplicationForegroundThemeBrush"]);
+                }
+            }
+        }
+
+        private void OnNavigated(object sender, NavigationEventArgs e) {
+            // Each time a navigation event occurs, update the Back button's visibility
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                ((Frame)sender).CanGoBack ?
+                AppViewBackButtonVisibility.Visible :
+                AppViewBackButtonVisibility.Collapsed;
         }
 
         /// <summary>

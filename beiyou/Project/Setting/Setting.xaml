@@ -8,6 +8,15 @@
     mc:Ignorable="d"
     RequestedTheme="{x:Bind currentTheme.Theme, Mode=OneWay}">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary Source="/Theme/LightThemeDictionary.xaml" x:Key="Light" />
+                <ResourceDictionary Source="/Theme/DarkThemeDictionary.xaml" x:Key="Dark" />
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <!-- 自适应 -->
         <VisualStateManager.VisualStateGroups>
@@ -48,7 +57,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock  Name="NormalViewportPageTitle" Grid.Row="0" Text="设置" Style="{StaticResource SubheaderTextBlockStyle}" Margin="18, 18, 10, 0"/>
-            <Grid  Name="CompactTitleBarContent" Grid.Row="0" Height="48">
+            <Grid Name="CompactTitleBarContent" Grid.Row="0" Height="48" Background="{ThemeResource CompactTitleBarContentBackgroundColor}">
                 <TextBlock Name="CompactTitleTextblock" Text="设置" Margin="52, 0, 0, 0" VerticalAlignment="Center" Style="{StaticResource BaseTextBlockStyle}"/>
             </Grid>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
@@ -57,7 +66,7 @@
                         <Grid Name="SettingsGrid">
                             <StackPanel Name="ThemePickerStackPanel" Orientation="Vertical">
                                 <TextBlock Name="ThemePickerTextBlock" Text="主题" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="24" FontWeight="SemiLight" OpticalMarginAlignment="TrimSideBearings"/>
-                                <ToggleSwitch Name="ThemePickerToggleButton" Header="夜间模式" OffContent="关闭" OnContent="开启" Margin="0,18,0,0" Toggled="ThemePickerToggleButton_Toggled"/>
+                                <ToggleSwitch Name="ThemePickerToggleButton" Header="夜间模式" OffContent="关闭" OnContent="开启" Margin="0,18,0,0"/>
                             </StackPanel>
                         </Grid>
                     </StackPanel>
